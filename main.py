@@ -4,9 +4,9 @@ from app.middleware.timer import timing_middleware
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-app.middleware("http")(timing_middleware)
+app.add_middleware("http")(timing_middleware)
 
-app.middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -19,3 +19,5 @@ app.include_router(issues_router)
 @app.get("/health")
 def health_check():
     return {"status" : "ok"}
+
+# https://huggingface.co/google/vit-base-patch16-224
