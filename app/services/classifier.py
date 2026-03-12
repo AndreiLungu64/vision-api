@@ -1,18 +1,18 @@
 from app.config import settings
 import httpx
 
-API_URL = f"https://api-inference.huggingface.co/models/{settings.model_name}"
-
 async def classify_image(image_bytes: bytes) -> dict:
     async with httpx.AsyncClient() as client:
         response = await client.post(
-            API_URL,
+            url=f"{settings.api_url}",
             content=image_bytes,
-            headers={"Authorization": f"Bearer {settings.hf_token}"},
+            headers={
+            "Authorization": f"Bearer {settings.hf_token}",
+            "Content-Type": "application/octet-stream",
+        },
         )
 
         results = response.json()
-        print("The response is", response.status_code, results)
 
         predictions = [{"label" : r["label"], "confidence": round(r["score"], 4)} for r in results]
         top = predictions[0]
