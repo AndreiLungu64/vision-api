@@ -1,7 +1,10 @@
-import uuid
-from fastapi import HTTPException, status, APIRouter
+from fastapi import HTTPException, status, APIRouter, UploadFile
+from app.schemas import ClassifyResponse
+from app.services.classifier import classify_image
 
 router = APIRouter(prefix="/api/v1/classify", tags=["classify"])
 
 @router.post("/", response_model=ClassifyResponse)
-async send_image(paylaod: image):
+async def send_image(image: UploadFile):
+    image_bytes = await image.read()
+    return classify_image(image_bytes)
