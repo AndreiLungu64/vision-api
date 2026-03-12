@@ -30,3 +30,8 @@ class IssueOut(BaseModel):
     description: str
     priority: IssuePriority
     status: IssueStatus
+
+class ClassifyResponse(BaseModel):
+    
+    
+class Prediction(BaseModel):
