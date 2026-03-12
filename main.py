@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes.issues import router as issues_router
+from app.routes.classify import router as classify_router
 from app.middleware.timer import timing_middleware
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -14,10 +14,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(issues_router)
+app.include_router(classify_router)
 
 @app.get("/health")
 def health_check():
     return {"status" : "ok"}
-
-# https://huggingface.co/google/vit-base-patch16-224
