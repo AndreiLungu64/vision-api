@@ -4,7 +4,8 @@ from app.middleware.timer import timing_middleware
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-app.add_middleware("http")(timing_middleware)
+
+app.middleware("http")(timing_middleware)
 
 app.add_middleware(
     CORSMiddleware,

@@ -12,6 +12,7 @@ async def classify_image(image_bytes: bytes) -> dict:
         )
 
         results = response.json()
+        print("The response is", response.status_code, results)
 
         predictions = [{"label" : r["label"], "confidence": round(r["score"], 4)} for r in results]
         top = predictions[0]
